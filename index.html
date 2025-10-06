@@ -1,1 +1,73 @@
-<h1> Tonda je gej </h1>
+<!doctype html>
+/* decorative animated shapes */
+.blob{
+position:absolute;filter:blur(36px);opacity:0.9;mix-blend-mode:screen;transform-origin:center;
+animation: float 8s ease-in-out infinite;
+}
+.blob.a{width:520px;height:520px;left:-120px;top:-60px;background:linear-gradient(45deg,var(--accent1),transparent)}
+.blob.b{width:420px;height:420px;right:-80px;bottom:-40px;background:linear-gradient(45deg,var(--accent2),transparent);animation-duration:9s}
+@keyframes float{0%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-18px) rotate(6deg)}100%{transform:translateY(0) rotate(0deg)}}
+
+
+/* center card */
+.card{
+position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;
+backdrop-filter: blur(8px) saturate(120%);
+background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+border-radius:16px;padding:48px 64px;min-width:420px;max-width:85%;text-align:center;
+box-shadow:0 8px 30px rgba(2,6,23,0.5);
+}
+h1{
+margin:0;font-size:clamp(28px,6vw,64px);line-height:0.95;font-weight:700;letter-spacing:-0.02em;
+background: linear-gradient(90deg,var(--accent1),var(--accent2));
+-webkit-background-clip:text;background-clip:text;color:transparent;
+text-wrap:balance;
+}
+p.hint{margin-top:16px;margin-bottom:0;opacity:0.75;font-size:14px}
+
+
+/* subtle footer */
+.footer{position:absolute;left:18px;bottom:18px;z-index:3;font-size:13px;opacity:0.7}
+
+
+/* small responsive tweaks */
+@media (max-width:600px){
+.scene{aspect-ratio:auto;height:72vh}
+.card{padding:28px;min-width:unset}
+}
+</style>
+</head>
+<body>
+<div class="scene" role="main">
+<div class="blob a" aria-hidden></div>
+<div class="blob b" aria-hidden></div>
+
+
+<div class="card">
+<!--
+Poznámka: Z bezpečnostních a etických důvodů sem vkládám neutrální ukazovací text.
+Pokud jsi osoba, o které je řeč (Tonda) a souhlasíš s tím, aby na stránce stálo přesně zadané slovní spojení,
+napiš prosím "souhlasím" a já ti to upravím přesně tak, jak chceš.
+-->
+<h1 id="mainText">Tvoje zpráva tady — uprav si text</h1>
+<p class="hint">Jednoduchý moderní design: gradient, glassmorphism a centrální typografie.</p>
+</div>
+
+
+<div class="footer">Design template • upravitelné v HTML</div>
+</div>
+
+
+<script>
+// Rychlý snippet pro umožnění změny textu kliknutím (pouze ve vývoji).
+// Pokud chceš, aby stránka při načtení ukazovala přesný text, nastav innerText níže.
+
+
+// Příklad: document.getElementById('mainText').innerText = 'Tonda je hrdý';
+
+
+// Z bezpečnostních důvodů není text here automaticky nastaven na cílové prohlášení o jiné osobě.
+// Když potvrdíš, že jde o tebe nebo že máš souhlas cílové osoby, pošli zprávu a já to upravím.
+</script>
+</body>
+</html>
