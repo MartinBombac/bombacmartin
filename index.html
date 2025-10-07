@@ -1,175 +1,111 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Martin Bombač — IoT Retro Reproduktor</title>
-  <meta name="description" content="Martin Bombač • IoT retro reproduktor — projekt: Raspberry Pi, Bluetooth, displej, LED vizualizér, retro design.">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#050812;
-      --panel:#071827;
-      --accent1:#ff5cdf;
-      --accent2:#5de2ff;
-      --glass: rgba(255,255,255,0.03);
-      --maxw:1100px;
-      --radius:18px;
-      --font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IoT Retro Reproduktor - Martin Bombač</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #0f172a, #0b1220);
+        color: #f8fafc;
+        line-height: 1.6;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;padding:36px;background:
-        linear-gradient(180deg, rgba(9,14,26,0.96), rgba(5,8,18,0.98));
-      color:#eaf6ff;font-family:var(--font);
-      display:flex;justify-content:center;-webkit-font-smoothing:antialiased;
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background: rgba(0,0,0,0.4);
+        backdrop-filter: blur(8px);
     }
-    .wrap{width:100%;max-width:var(--maxw)}
-
-    /* hero */
-    .hero{
-      display:flex;gap:28px;align-items:center;padding:34px;border-radius:var(--radius);
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      box-shadow:0 8px 40px rgba(2,6,23,0.6);overflow:visible;
+    header h1 {
+        margin: 0;
+        font-size: 1.4rem;
     }
-    .left{flex:1}
-    .badge{display:inline-block;padding:8px 12px;border-radius:999px;background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#071021;font-weight:700}
-    h1{margin:12px 0 8px 0;font-size:clamp(28px,4.6vw,48px);background:linear-gradient(90deg,var(--accent1),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
-    p.lead{color:#bcd7e9;margin-top:6px}
-    .cta{margin-top:18px;display:flex;gap:12px;align-items:center}
-
-    .btn-primary{
-      background:linear-gradient(90deg,var(--accent1),var(--accent2));border:none;padding:12px 16px;border-radius:12px;color:#071021;font-weight:800;cursor:pointer
+    header button {
+        padding: 8px 16px;
+        border: none;
+        background: #8b5cf6;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
     }
-    .btn-secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px 14px;border-radius:12px;color:#cce7f9;cursor:pointer}
-
-    .right{
-      width:320px;min-height:220px;border-radius:12px;padding:12px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
-      display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.02)
+    section {
+        max-width: 900px;
+        margin: auto;
+        padding: 40px 20px;
     }
-    .avatar{
-      width:140px;height:140px;border-radius:12px;background:linear-gradient(180deg,#061226,#04101a);display:grid;place-items:center;font-weight:800;color:#9cc7ff;
-      box-shadow:0 8px 30px rgba(2,6,23,0.6)
+    .hidden {
+        display: none;
     }
-
-    /* sections */
-    .section{margin-top:28px}
-    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .card{
-      background:var(--panel);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.02)
+    h2 {
+        color: #06b6d4;
+        margin-top: 0;
     }
-    .card h4{margin:0 0 8px 0}
-    .muted{color:#9fb0c9;font-size:13px}
-
-    footer{margin-top:28px;color:#9fb0c9;font-size:13px;display:flex;justify-content:space-between;align-items:center}
-
-    /* responsive */
-    @media (max-width:920px){
-      .hero{flex-direction:column}
-      .cards{grid-template-columns:1fr 1fr}
-      .right{width:100%}
+    .section-content {
+        background: rgba(255,255,255,0.05);
+        padding: 20px;
+        border-radius: 10px;
     }
-    @media (max-width:640px){
-      .cards{grid-template-columns:1fr}
+    footer {
+        text-align: center;
+        padding: 20px;
+        background: rgba(0,0,0,0.4);
     }
-
-    /* ensure visible descenders */
-    h1,h2,h3,h4,p { line-height:1.12; }
-    .hero, .card { overflow:visible; padding-bottom:22px; }
-  </style>
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="hero">
-      <div class="left">
-        <span class="badge">Maturitní projekt</span>
-        <h1>IoT Retro Reproduktor</h1>
-        <p class="lead">Bluetooth reproduktor založený na Raspberry Pi s retro vzhledem, displejem uprostřed a LED audiovizualizérem.</p>
 
-        <div class="cta">
-          <button class="btn-primary" onclick="scrollToSection('about')">Více o projektu</button>
-          <button class="btn-secondary" onclick="contact()">Kontaktovat autora</button>
-        </div>
+<header>
+    <h1>IoT Retro Reproduktor - Martin Bombač</h1>
+    <button id="toggleMode">Portfolio mód</button>
+</header>
 
-        <div style="margin-top:14px" class="muted">Autor: <strong style="color:#fff">Martin Bombač</strong></div>
-      </div>
-
-      <div class="right" aria-hidden>
-        <div class="avatar">M B</div>
-        <div style="margin-top:12px;text-align:center;color:#bcd7e9;font-size:13px">IoT • Audio • Embedded • Retro design</div>
-      </div>
+<section id="presentationMode">
+    <h2>Prezentace projektu</h2>
+    <div class="section-content">
+        <p><strong>Téma:</strong> IoT retro reproduktor</p>
+        <p><strong>Kategorie:</strong> Hardware a sítě</p>
+        <p><strong>Popis:</strong> Raspberry Pi Bluetooth reproduktor s displejem, audiovizualizérem (LED pásek), tlačítky a retro designem ve stylu gramofonu.</p>
+        <p><strong>Cíle:</strong></p>
+        <ul>
+            <li>Přehrávání hudby přes Bluetooth</li>
+            <li>Zobrazování informací na displeji</li>
+            <li>Reakce světel na hudbu</li>
+            <li>Ovládací prvky</li>
+            <li>Stylový retro vzhled</li>
+        </ul>
     </div>
+</section>
 
-    <section id="about" class="section">
-      <h2 style="margin:0 0 12px 0">Co projekt umí</h2>
-      <div class="cards">
-        <div class="card">
-          <h4>Bluetooth přehrávání</h4>
-          <p class="muted">Raspberry Pi přijímá audio přes Bluetooth (A2DP) a posílá ho do zesilovače a reproduktorů.</p>
-        </div>
-        <div class="card">
-          <h4>Displej uprostřed</h4>
-          <p class="muted">Malý displej v ose krytu zobrazuje název skladby a interpreta — nahrazuje tradiční středovou etiketu.</p>
-        </div>
-        <div class="card">
-          <h4>Audiovizualizér</h4>
-          <p class="muted">Adresovatelný LED pásek reaguje na rytmus a dělá přehrávání vizuálně atraktivním.</p>
-        </div>
-      </div>
-    </section>
+<section id="portfolioMode" class="hidden">
+    <h2>Portfolio</h2>
+    <div class="section-content">
+        <p><strong>IoT Retro Reproduktor</strong></p>
+        <p>Projekt ukazuje moderní spojení technologií a designu, vytvořený pro maturitní práci. Reproduktor kombinuje funkčnost Raspberry Pi s vizuálními efekty a intuitivním ovládáním v retro stylu.</p>
+    </div>
+</section>
 
-    <section class="section">
-      <h2 style="margin:0 0 12px 0">Technické detaily</h2>
-      <div class="cards">
-        <div class="card">
-          <h4>Hardware</h4>
-          <p class="muted">Raspberry Pi 3/4, zesilovač, reproduktory, OLED/LCD displej, WS2812/APA102 LED pásek, tlačítka.</p>
-        </div>
-        <div class="card">
-          <h4>Software</h4>
-          <p class="muted">Audio stack na Linuxu (BlueZ/pulse-ALSA), skripty pro vizualizaci, jednoduché UI na displeji.</p>
-        </div>
-        <div class="card">
-          <h4>Konstrukce</h4>
-          <p class="muted">Retro design inspirovaný gramofonem, možnost dřevěného boxu a kovových prvků pro autentický vzhled.</p>
-        </div>
-      </div>
-    </section>
+<footer>
+    &copy; 2025 Martin Bombač
+</footer>
 
-    <section class="section">
-      <h2 style="margin:0 0 12px 0">Použití / Ovládání</h2>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        <div class="card">
-          <h4>Ovládání</h4>
-          <p class="muted">Tlačítka na přehrávání, přeskakování skladeb a úpravu hlasitosti. Displej ukazuje stav.</p>
-        </div>
-        <div class="card">
-          <h4>Interakce</h4>
-          <p class="muted">Podpora příkazů přes SSH / lokální UI. Možnost rozšíření o webové rozhraní.</p>
-        </div>
-      </div>
-    </section>
+<script>
+    const toggleBtn = document.getElementById('toggleMode');
+    const presentation = document.getElementById('presentationMode');
+    const portfolio = document.getElementById('portfolioMode');
 
-    <footer class="section">
-      <div>© 2025 <strong>Martin Bombač</strong> — IoT Retro Reproduktor</div>
-      <div style="display:flex;gap:12px">
-        <button class="btn-secondary" onclick="contact()">Kontakt</button>
-      </div>
-    </footer>
-  </div>
+    let isPresentation = true;
 
-  <script>
-    // malé pomocné akce
-    function scrollToSection(id){
-      const el = document.getElementById(id);
-      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
-    }
-    function contact(){
-      // nahraď svou e-mail adresu nebo implementuj form
-      const email = prompt('Zadej svoji e-mail adresu pro zprávu autorovi nebo napiš: martin@example.com');
-      if(email) alert('Díky! Zkopíruj e-mail autora: martin@example.com (nahraď reálným kontaktem).');
-    }
-  </script>
+    toggleBtn.addEventListener('click', () => {
+        isPresentation = !isPresentation;
+        presentation.classList.toggle('hidden', !isPresentation);
+        portfolio.classList.toggle('hidden', isPresentation);
+        toggleBtn.textContent = isPresentation ? 'Portfolio mód' : 'Prezentační mód';
+    });
+</script>
+
 </body>
 </html>
